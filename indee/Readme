@@ -1,7 +1,7 @@
 Steps
 1 - python manage.py migrate
-2 - python manage.py runserver
-3 - python manage.py createsuperuser
+2 - python manage.py createsuperuser
+3 - python manage.py runserver
 
 links(assuming step 2)
 1 - localhost:8000/app1/login/
