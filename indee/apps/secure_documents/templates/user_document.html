@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>UserDocuments</title>
+
+
+    <link rel="stylesheet" href="css/normalize.css">
+
+
+        <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+
+* { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
+
+html { width: 100%; height:100%; overflow:hidden; }
+
+body {
+	width: 100%;
+	height:100%;
+	font-family: 'Open Sans', sans-serif;
+	background: #092756;
+	background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%),-moz-linear-gradient(top,  rgba(57,173,219,.25) 0%, rgba(42,60,87,.4) 100%), -moz-linear-gradient(-45deg,  #670d10 0%, #092756 100%);
+	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -webkit-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -webkit-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -o-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -o-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -ms-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -ms-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+}
+
+
+
+    </style>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <script src="js/prefixfree.min.js"></script>
+
+
+  </head>
+
+  <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Secure Documents</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li style="float: right"><a href="/app1/logout/">Logout</a></li>
+{#      <li><a href="#">Page 1</a></li>#}
+{#      <li><a href="#">Page 2</a></li>#}
+{#      <li><a href="#">Page 3</a></li>#}
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+                {% for message in messages %}
+     <h4 style="color: red" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h4>
+    {% endfor %}
+    <form  method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+  <fieldset class="form-group">
+    <label for="exampleInputFile" style="color:darkolivegreen">File input</label>
+    <input type="file" class="form-control-file" name="selected_file" id="exampleInputFile">
+    <small class="text-muted"></small>
+  </fieldset>
+  <div class="checkbox">
+    <label style="color:green">
+      <input type="checkbox" name="secure_link">Secure link
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+    <h3 style="color:#ffffff">Last Ten Uploads (https://domain/secureview/{secure link hash})</h3>
+    <ul>
+    {% for i in user_docs %}
+    <li style="color:grey">secure link - <a href="/app1/secureview/{{i.secure_link}}">{{ i.filename }}</a></li>
+    {% endfor %}
+    </ul>
+    <div>
+    </div>
+</div>
+</div>
+        <script src="js/index.js"></script>
+
+
+
+
+  </body>
+</html>

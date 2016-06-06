@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <title>Secure file viewer</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<style>
+    .overlay {
+    height:0px;
+    overflow:visible;
+    pointer-events:none;
+    background:none !important;
+}
+</style>
+    <style>
+    @media print {
+  html, body {
+    display: none;  /* hide whole page */
+  }
+}
+    </style>
+
+<style>
+.nonselectable{-webkit-user-select:none;-khtml-user-drag:none;-khtml-user-select:none;-moz-user-select:none;-moz-user-select:-moz-none;-ms-user-select:none;user-select:none}
+.selectable{-webkit-user-select:auto;-khtml-user-drag:auto;-khtml-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}
+</style>
+
+<script>
+$('html').addClass('nonselectable');
+$.fn.ready(function(){var b=$(".nonselectable"),c=$(".selectable");b.on("dragstart, selectstart",function(a){a.preventDefault()});c.on("dragstart, selectstart",function(a){a.stopPropagation()});b.find("*").andSelf().attr("unselectable","on");c.find("*").andSelf().removeAttr("unselectable")});
+</script>
+
+</head>
+<body class="nonselectable" oncontextmenu="return false">{# for I.E browsers #}
+{% if file_type == 0%}
+    <div class="overlay">
+    <object  data="{{ MEDIA_URL }}{{ file_src }}" type="application/pdf" width="800" height="2100">
+{#<a href="data/test.pdf">test.pdf</a>#}
+    </object>
+    </div>
+{% elif file_type == 1%}
+    <div class="overlay">
+  <pre class="nonselectable" style="word-wrap: break-word; white-space: pre-wrap;">{{ t_file }}
+  </pre>
+    </div>
+{% endif %}
+<div>
+
+</div>
+</body>
+</html>
