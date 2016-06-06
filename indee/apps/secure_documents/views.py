@@ -14,7 +14,7 @@ class UserLogin(TemplateView):
         try:
             email = request.POST['email']
             password = request.POST['password']
-        except KeyError:
+        except Exception:
             user = None
         else:
             user = authenticate(username=email, password=password)
@@ -48,8 +48,12 @@ class UserDocuments(View):
         '''
         upload new document
         '''
-        secure_link = True if request.POST.get('secure_link') else False
-        file_to_save = request.FILES['selected_file']
+        try:
+            secure_link = True if request.POST.get('secure_link') else False
+            file_to_save = request.FILES['selected_file']
+        except Exception:
+            messages.add_message(request, messages.ERROR, 'Invalid parameters!')
+            return redirect('user_document')
         doc_type = file_to_save.name.split('.')[1].lower()
         if doc_type in ['pdf', 'txt']:
             doc_type = 0 if doc_type=='pdf' else 1
