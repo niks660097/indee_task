@@ -4,4 +4,4 @@ Steps
 
 links(assuming step 2)
 1 - localhost:8000/app1/login/
-2 - localhost:8000/app1/document/
+2 - localhost:8000/app1/document/ (auto-redirect on login)
